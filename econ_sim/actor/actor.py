@@ -48,6 +48,16 @@ class Actor:
 
         return self.inventory[commodity]
 
+    def transform(self,source: cd,dest: cd,max_val: int = None):
+
+        if max_val:
+            transform_amount = min(max_val,self.get(source))
+        else:
+            transform_amount = self.get(source)
+
+        self.produce(cd.Tool, transform_amount)
+        self.consume(cd.Metal, transform_amount)
+
 
 class Farmer(Actor):
     def __init__(self, inventory):
@@ -95,15 +105,12 @@ class Refiner(Actor):
     def _production(self):
 
         if self.has(cd.Food) and self.has(cd.Tool):
-            self.produce(cd.Metal, self.get(cd.Ore))
-            self.consume(cd.Ore, self.get(cd.Ore))
+            self.transform(cd.Ore,cd.Metal)
             self.consume(cd.Food, 1)
             self.break_tools(0.1)
 
         elif self.has(cd.Food) and not self.has(cd.Tool):
-            ore_to_consume = max(2, self.get(cd.Ore))
-            self.produce(cd.Metal, ore_to_consume)
-            self.consume(cd.Ore, ore_to_consume)
+            self.transform(cd.Ore,cd.Metal,2)
             self.consume(cd.Food, 1)
 
         else:
@@ -136,8 +143,7 @@ class Blacksmith(Actor):
     def _production(self):
 
         if self.has(cd.Food):
-            self.produce(cd.Tool, self.get(cd.Metal))
-            self.consume(cd.Metal, self.get(cd.Metal))
+            self.transform(cd.Metal,cd.Tool)
             self.consume(cd.Food, 1)
         else:
             self.money = self.money - 2
