@@ -15,7 +15,9 @@ class Actor:
 
     def production(self):
         self._production()
-        logger.info(f"{id(self)} - {self._class_name} : {dict(self.inventory)} - Money: {self.money}")
+        logger.info(
+            f"{id(self)} - {self._class_name} : {dict(self.inventory)} - Money: {self.money}"
+        )
 
     def _proudction(self):
         raise NotImplementedError

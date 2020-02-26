@@ -1,14 +1,13 @@
 from econ_sim.actor import Actor
 
-class MarketPlace():
 
+class MarketPlace:
     def __init__(self):
 
         self.actors = []
 
-    def register_actor(self,agent: Actor):
+    def register_actor(self, agent: Actor):
         self.actors.append(agent)
-
 
     def production(self):
 
@@ -17,7 +16,3 @@ class MarketPlace():
     def generate_offers(self):
 
         [x.generate_offer(self) for x in self.actors]
-
-
-
-
