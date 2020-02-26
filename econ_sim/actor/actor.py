@@ -20,8 +20,8 @@ class Actor:
     def _proudction(self):
         raise NotImplementedError
 
-    def genereate_offer(self, market_place):
-        raise NotImplementedError
+    def generate_offer(self, market_place):
+        print(market_place)
 
     def break_tools(self, prob):
 
@@ -48,10 +48,10 @@ class Actor:
 
         return self.inventory[commodity]
 
-    def transform(self,source: cd,dest: cd,max_val: int = None):
+    def transform(self, source: cd, dest: cd, max_val: int = None):
 
         if max_val:
-            transform_amount = min(max_val,self.get(source))
+            transform_amount = min(max_val, self.get(source))
         else:
             transform_amount = self.get(source)
 
@@ -78,6 +78,7 @@ class Farmer(Actor):
         else:
             self.money = self.money - 2
 
+
 class Miner(Actor):
     def __init__(self, inventory):
         self._class_name = "Miner"
@@ -97,6 +98,7 @@ class Miner(Actor):
         else:
             self.money = self.money - 2
 
+
 class Refiner(Actor):
     def __init__(self, inventory):
         self._class_name = "Refiner"
@@ -105,16 +107,17 @@ class Refiner(Actor):
     def _production(self):
 
         if self.has(cd.Food) and self.has(cd.Tool):
-            self.transform(cd.Ore,cd.Metal)
+            self.transform(cd.Ore, cd.Metal)
             self.consume(cd.Food, 1)
             self.break_tools(0.1)
 
         elif self.has(cd.Food) and not self.has(cd.Tool):
-            self.transform(cd.Ore,cd.Metal,2)
+            self.transform(cd.Ore, cd.Metal, 2)
             self.consume(cd.Food, 1)
 
         else:
             self.money = self.money - 2
+
 
 class Woodcutter(Actor):
     def __init__(self):
@@ -135,6 +138,7 @@ class Woodcutter(Actor):
         else:
             self.money = self.money - 2
 
+
 class Blacksmith(Actor):
     def __init__(self, inventory):
         self._class_name = "Blacksmith"
@@ -143,7 +147,7 @@ class Blacksmith(Actor):
     def _production(self):
 
         if self.has(cd.Food):
-            self.transform(cd.Metal,cd.Tool)
+            self.transform(cd.Metal, cd.Tool)
             self.consume(cd.Food, 1)
         else:
             self.money = self.money - 2
