@@ -1,6 +1,6 @@
 import random
 from loguru import logger
-from econ_sim.commodities import Commodity as cd
+from econ_sim.commodities import Commodities as cd
 from collections import defaultdict
 
 

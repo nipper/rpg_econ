@@ -1,6 +1,6 @@
 import econ_sim.actor as actors
 import econ_sim.market as market
-from econ_sim.commodities import Commodity as cd
+from econ_sim.commodities import Commodities as cd
 
 test_market = market.MarketPlace()
 

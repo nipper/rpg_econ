@@ -1,6 +1,6 @@
 from enum import Enum, auto
 
-class Commodity(Enum):
+class Commodities(Enum):
     Food = auto()
     Metal = auto()
     Ore = auto()
